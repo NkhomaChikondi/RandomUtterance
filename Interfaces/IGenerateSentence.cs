@@ -8,7 +8,7 @@ namespace RandomUtterance.Interfaces
 {
     public interface IGenerateSentence
     {
-        string generateSentence(int adjectiveNumber, bool randomSentence);
+        string GenerateSentence(List<string> adj, string[] nouns, int adjectiveNumber, bool useRandom, Random random);
         void getUserInput();
     }
 }

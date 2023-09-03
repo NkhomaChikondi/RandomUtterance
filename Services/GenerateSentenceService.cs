@@ -9,51 +9,90 @@ namespace RandomUtterance.Services
 {
     public class GenerateSentenceService : IGenerateSentence
     {
-        public string generateSentence(int adjectiveNumber, bool randomSentence)
+        public void getUserInput()
         {
-            // create a list of adjectives 
+            // handle all user input
+            Console.Write("Welcome! please enter the number of adjectives for your generated sentence: ");
+            try
+            {
+                int numAdjectives = int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error: You have not specified a number");
+                return;
+            }
+           
+
+            Console.Write("Please enter the number of sentences to be generate: ");            
+            try
+            {
+                int numSentences = int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error: You have not specified a number");
+                return;
+            }
+
+
+            Console.Write("Do you want the sentence to be generated randomly? (yes/no): ");
+            bool useRandom = Console.ReadLine().ToLower() == "yes";
+
+            // get the time that has ellapsed since the application started running
+            int seed = Environment.TickCount;
+
+            if (!useRandom)
+            {
+                
+                Console.Write("Specify the number of times you want the sentence to be generate: ");
+                try
+                {
+                    seed = int.Parse(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+
+                    Console.WriteLine("Error: You have not specified a number");
+                    return;
+                }
+              
+            }
+            Random random = new Random(seed);
+
             List<string> adjectives = new List<string>
             {
-                "Beautiful","Colorful","Exciting","Delicious","Mysterious","Elegant","Vibrant","Serene","Captivating","Enchanting","Mesmerizing","Tranquil"
+               "beautiful", "colorful", "exciting", "delicious", "mysterious","Captivating","Captivating","Exquisite"
             };
-            // Noun (you can replace this with a list of nouns)
-            string noun = "item";
 
-            // Select random adjectives
-            List<string> selectedAdjectives = new List<string>();
-            if (randomSentence)
+            string[] nouns = { "flower", "painting", "adventure", "dish", "puzzle","car","application" };
+
+            for (int i = 0; i < numSentences; i++)
+            {
+                string sentence = GenerateSentence(adjectives, nouns, numAdjectives, useRandom, random);
+                Console.WriteLine(sentence);
+            }
+        }
+        public string GenerateSentence(List<string> adj, string[] nouns, int adjectiveNumber, bool useRandom, Random random)
+        {
+            string adjectiveString = "";
+            if (useRandom)
             {
                 for (int i = 0; i < adjectiveNumber; i++)
                 {
-                    int index = random.Next(adjectives.Count);
-                    selectedAdjectives.Add(adjectives[index]);
+                    int index = random.Next(adj.Count);
+                    adjectiveString += adj[index] + (i < adjectiveNumber - 1 ? ", " : "");
                 }
             }
             else
             {
-                selectedAdjectives = adjectives.Take(adjectiveNumber).ToList();
+                adjectiveString = string.Join(", ", adj.Take(adjectiveNumber));
             }
 
-            // Generate the sentence
-            string adjectiveString = string.Join(", ", selectedAdjectives);
-            string sentence = $"A {adjectiveString} {noun}";
-
-            return sentence;
+            string noun = nouns[random.Next(nouns.Length)];
+            return $"A {adjectiveString} {noun}";
         }
-        public void getUserInput()
-        {
-            int numberofSentence = 0;
-            int numberofAdjectives = 0;
-            Console.WriteLine("Welcome! lets generate interesting sentences");
-            try
-            {
-                
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }
+        
     }
 }
