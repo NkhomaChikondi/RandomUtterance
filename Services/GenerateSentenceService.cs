@@ -11,11 +11,13 @@ namespace RandomUtterance.Services
     {
         public void getUserInput()
         {
+            int adjectiveNumber = 0, sentenceNumber = 0;
+
             // handle all user input
             Console.Write("Welcome! please enter the number of adjectives for your generated sentence: ");
             try
             {
-                int numAdjectives = int.Parse(Console.ReadLine());
+                adjectiveNumber = int.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
@@ -24,10 +26,10 @@ namespace RandomUtterance.Services
             }
            
 
-            Console.Write("Please enter the number of sentences to be generate: ");            
+            Console.Write("Please enter the number of sentences you want to be generate: ");            
             try
             {
-                int numSentences = int.Parse(Console.ReadLine());
+                sentenceNumber = int.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
@@ -64,12 +66,12 @@ namespace RandomUtterance.Services
             {
                "beautiful", "colorful", "exciting", "delicious", "mysterious","Captivating","Captivating","Exquisite"
             };
-
+            // create an array of string containing nouns
             string[] nouns = { "flower", "painting", "adventure", "dish", "puzzle","car","application" };
 
-            for (int i = 0; i < numSentences; i++)
+            for (int i = 0; i < sentenceNumber; i++)
             {
-                string sentence = GenerateSentence(adjectives, nouns, numAdjectives, useRandom, random);
+                string sentence = GenerateSentence(adjectives, nouns, adjectiveNumber, useRandom, random);
                 Console.WriteLine(sentence);
             }
         }
