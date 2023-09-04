@@ -12,6 +12,7 @@ namespace RandomUtterance.Services
         public void getUserInput()
         {
             int adjectiveNumber = 0, sentenceNumber = 0;
+            bool useRandom = false;
 
             // handle all user input
             Console.Write("Welcome! please enter the number of adjectives for your generated sentence: ");
@@ -36,10 +37,28 @@ namespace RandomUtterance.Services
                 Console.WriteLine("Error: You have not specified a number");
                 return;
             }
-
-
+          
             Console.Write("Do you want the sentence to be generated randomly? (yes/no): ");
-            bool useRandom = Console.ReadLine().ToLower() == "yes";
+            string answer = Console.ReadLine().ToLower();
+            // handle all exceptions
+            try
+            {
+                if(answer == "yes")
+                    useRandom = true;
+                else if(answer == "no")
+                    useRandom = false;
+                else
+                {
+                    Console.WriteLine("Error: A valid option was not selected");
+                    return;
+                }                   
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("Error: A valid option was not selected");
+                return;
+            }            
 
             // get the time that has ellapsed since the application started running
             int seed = Environment.TickCount;
@@ -68,7 +87,7 @@ namespace RandomUtterance.Services
             };
             // create an array of string containing nouns
             string[] nouns = { "flower", "painting", "adventure", "dish", "puzzle","car","application" };
-
+            // call the generate sentence function as many times as the sentencenumber specified
             for (int i = 0; i < sentenceNumber; i++)
             {
                 string sentence = GenerateSentence(adjectives, nouns, adjectiveNumber, useRandom, random);
@@ -93,8 +112,6 @@ namespace RandomUtterance.Services
 
             string noun = nouns[random.Next(nouns.Length)];
             return $"A {adjectiveString} {noun}";
-        }
-
-        
+        }        
     }
 }
