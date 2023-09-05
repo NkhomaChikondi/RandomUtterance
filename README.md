@@ -1,5 +1,4 @@
 # RandomUtterance
-This project is about creating a program that generates different sentences about items using specified adjectives.
-The main purpose is to keep the conversations enganging by avoiding repetitive responses. A user specifies the number of adjectives and sentences to generate.
-The program allows the user to choose an option to generate the consistent output of sentences,upon re-running.
+This project involves creating a program that generates descriptive sentences using adjectives to vary conversational responses. 
+Users can specify the number of adjectives and sentences, with an option for random or consistent output. Unit tests ensure 
 
